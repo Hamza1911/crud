@@ -1,12 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import {useSelector} from "react-redux"
 
 const Navbar = () => {
+  const allusers=useSelector((state)=> state.app.users)
   return (
     <nav className="navbar navbar-expand-xl bg-light">
       <div className="container-fluid"> {/* Use container-fluid to take up full width */}
-        <a className="navbar-brand" href="#">
+        <h4 className="navbar-brand" href="#">
           Redux Toolkit
-        </a>
+        </h4>
         <button
           className="navbar-toggler"
           type="button"
@@ -25,14 +28,14 @@ const Navbar = () => {
         >
           <ul className="navbar-nav">
             <li className="nav-item">
-              <a className="nav-link" href="#">
+              <Link to="/" className="nav-link">
                 Create Post
-              </a>
+              </Link>
             </li>
             <li className="nav-item">
-              <a className="nav-link disabled" href="#" tabIndex="-1" aria-disabled="true">
-                All Post
-              </a>
+              <Link to="/read" className="nav-link"  >
+                All Post({allusers.length})
+              </Link>
             </li>
           </ul>
           <form className="form-inline my-2 my-lg-0">
