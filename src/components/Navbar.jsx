@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useEffect,useState } from 'react';
 import { Link } from 'react-router-dom';
-import {useSelector} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
+import { searchUser } from '../redux/UserSlice';
 
 const Navbar = () => {
   const allusers=useSelector((state)=> state.app.users)
+  const [searchData ,setSearchData] =useState("")
+  const dispatch=useDispatch()
+  useEffect(()=>{
+    dispatch(searchUser(searchData))
+  },[searchData])
   return (
     <nav className="navbar navbar-expand-xl bg-light">
       <div className="container-fluid"> {/* Use container-fluid to take up full width */}
@@ -44,6 +50,7 @@ const Navbar = () => {
               type="search"
               placeholder="Search"
               aria-label="Search"
+              onChange={(e)=>setSearchData(e.target.value)}
             />
             <button className="btn btn-outline-success my-2 my-sm-0" type="submit">
               Search

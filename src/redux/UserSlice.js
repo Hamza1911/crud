@@ -40,7 +40,7 @@ export const deleteUser = createAsyncThunk(
   "deleteUser",
   async (id, { rejectWithValue }) => {
     const response = await fetch(
-      `https://641dd63d945125fff3d75742.mockapi.io/crud/${id}`,
+      `https://6509ea4ff6553137159c3e8d.mockapi.io/crud/${id}`,
       { method: "DELETE" }
     );
 
@@ -53,12 +53,42 @@ export const deleteUser = createAsyncThunk(
     }
   }
 );
+// Update User
+export const UpdateUser = createAsyncThunk(
+  "UpdateUser",
+  async (data, { rejectWithValue }) => {
+    const response = await fetch(
+      `https://6509ea4ff6553137159c3e8d.mockapi.io/crud/${data.id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      }
+    );
+
+    try {
+      const result = await response.json();
+      return result;
+    } catch (e) {
+      return rejectWithValue(e);
+    }
+  }
+);
+
 const userDetail = createSlice({
   name: "userDetail",
   initialState: {
     users: [],
     loading: false,
     error: null,
+    searchData:[]
+  },
+  reducers:{
+    searchUser:(state,action)=>{
+      state.searchData=action.payload
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -96,12 +126,25 @@ const userDetail = createSlice({
         if(id){
           state.users = state.users.filter((ele)=>ele.id !==id)
         }
-        console.log("action delete",action.payload);
+      
       })
       .addCase(deleteUser.rejected,(state,action)=>{
+        state.loading=false;
+        state.error = action.payload;
+      })
+      .addCase(UpdateUser.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(UpdateUser.fulfilled, (state,action) => {
+        state.loading = false;
+        state.users=state.users.map((ele)=>(ele.id ===action.payload.id ? action.payload: ele))
+      })
+      .addCase(UpdateUser.rejected,(state,action)=>{
         state.loading=false;
         state.error = action.error.message;
       })
   },
 });
 export default userDetail.reducer;
+export const {searchUser}=userDetail.actions
