@@ -20,6 +20,7 @@ const Read = () => {
   }
   return (
     <div>
+<<<<<<< HEAD
       {showPopup && <CustomModal id={id} showPopup={showPopup} setShowPopup={setShowPopup} />}
       <h2>All Data</h2>
       <input className="form-check-input"  name="gender" checked={ radioData === ""} onChange={(e)=>setRadioData("")} type="radio" />
@@ -70,6 +71,19 @@ const Read = () => {
               </div>
             </div>
           ))}
+=======
+        <h2>All Data</h2>
+        <div>
+        <div class="card" style="width: 18rem;">
+        <img src="..." class="card-img-top" alt="..."/>
+  <div class="card-body">
+    <h5 class="card-title">Card title</h5>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    <a href="#" class="btn btn-primary">Go somewhere</a>
+  </div>
+</div>
+        </div>
+>>>>>>> 1469e41eb91820741ef311f6416014837b2dd75a
     </div>
   )
 }
