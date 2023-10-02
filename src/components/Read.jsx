@@ -8,7 +8,7 @@ import { Link } from 'react-router-dom'
 const Read = () => {
   const { users, loading, searchData } = useSelector((state) => state.app)
   const [id, setId] = useState()
-  const [radioData ,setRadioData] =useState("")
+  const [radioData, setRadioData] = useState("")
   const [showPopup, setShowPopup] = useState(false)
   const dispatch = useDispatch()
   useEffect(() => {
@@ -20,28 +20,30 @@ const Read = () => {
   }
   return (
     <div>
-<<<<<<< HEAD
+
       {showPopup && <CustomModal id={id} showPopup={showPopup} setShowPopup={setShowPopup} />}
       <h2>All Data</h2>
-      <input className="form-check-input"  name="gender" checked={ radioData === ""} onChange={(e)=>setRadioData("")} type="radio" />
-      <label className="form-check-label" >  All </label>
-      <input className="form-check-input" name="gender"  value="Male" type="radio" checked={radioData ==="Male"}
-      onChange={(e)=>setRadioData(e.target.value)}
-      />
-      <label className="form-check-label" > Male </label>
-      <input
-        className="form-check-input"
-        name="gender"
-        value="Female"
-        type="radio"
-        checked={radioData=== "Female"}
-        onChange={(e)=>setRadioData(e.target.value)}
+      <div >
+        <input className="form-check-input" name="gender" value="" checked={radioData === ""} onChange={(e) => setRadioData("")} type="radio" />
+        <label className="form-check-label" style={{ paddingRight: 10, marginRight: 25 }}>  All </label>
+        <input className="form-check-input" name="gender" value="Male" type="radio" checked={radioData === "Male"}
+          onChange={(e) => setRadioData(e.target.value)}
+        />
+        <label className="form-check-label" style={{ paddingRight: 10, marginRight: 25 }}> Male </label>
+        <input
+          className="form-check-input"
+          name="gender"
+          value="Female"
+          type="radio"
+          checked={radioData === "Female"}
+          onChange={(e) => setRadioData(e.target.value)}
 
 
-      />
-      <label className="form-check-label">
-        Female
-      </label>
+        />
+        <label className="form-check-label" style={{ paddingRight: 10, marginRight: 25 }}>
+          Female
+        </label>
+      </div>
 
 
       {users &&
@@ -51,16 +53,16 @@ const Read = () => {
           } else {
             return ele.name.toLowerCase().includes(searchData.toLowerCase())
           }
-        }).filter((ele)=>{
-          if(radioData ==="Male"){
+        }).filter((ele) => {
+          if (radioData === "Male") {
             return ele.gender === radioData
-          } else if(radioData ==="Female"){
+          } else if (radioData === "Female") {
             return ele.gender === radioData
-          }else return ele
+          } else return ele
         })
           .map((ele) => (
             <div key={ele.id} className="card w-50 mx-auto my-2"  >
-              <img src="..." className="card-img-top" alt="..." />
+              
               <div className="card-body">
                 <h5 className="card-title">{ele.name}</h5>
                 <h6 className='card-text'>{ele.email}</h6>
@@ -71,20 +73,14 @@ const Read = () => {
               </div>
             </div>
           ))}
-=======
-        <h2>All Data</h2>
-        <div>
-        <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="..."/>
-  <div class="card-body">
-    <h5 class="card-title">Card title</h5>
-    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-    <a href="#" class="btn btn-primary">Go somewhere</a>
-  </div>
-</div>
+
+    
+      <div>
+       
         </div>
->>>>>>> 1469e41eb91820741ef311f6416014837b2dd75a
-    </div>
+      </div>
+
+    
   )
 }
 
